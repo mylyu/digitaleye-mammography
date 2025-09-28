@@ -240,7 +240,7 @@ def apply_segmentation(seg_img_path, img_path, device):
         url = 'https://github.com/cbddobvyz/digitaleye-mammography/releases/download/shared-models.v1/'+segmodel_name
         wget.download(url, out='models/')
         print(segmodel_name.split('.pth')[0]+' model downloaded. It is estimated.')
-    seg_model = torch.load(path, map_location=torch.device(device))
+    seg_model = torch.load(path, map_location=torch.device(device), weights_only=False)
     print('Applying segmentation to images')
     crop_coordinates = []
     img_shapes = []
@@ -650,36 +650,36 @@ def apply_nms(result, image_path, class_size, iou_thr=0.1, scr_thr=0):
     return nms_results
 
 
-def get_nms_results(results, img_list, class_size, iou_thr, scr_thr):
-    """
-    Getting NMS applied results
+# def get_nms_results(results, img_list, class_size, iou_thr, scr_thr):
+#     """
+#     Getting NMS applied results
 
-    Parametreler
-    ---------- 
-    results: list
-        model detection result
-    img_list: list
-        images' path list
-    class_size : int
-        length of label names
-    iou_thr: int
-        iou threshold
-    scr_thr: int
-        confidence threshold
+#     Parametreler
+#     ---------- 
+#     results: list
+#         model detection result
+#     img_list: list
+#         images' path list
+#     class_size : int
+#         length of label names
+#     iou_thr: int
+#         iou threshold
+#     scr_thr: int
+#         confidence threshold
 
-    Returns
-    -------
-    nms_results: list
-        NMS applied results
+#     Returns
+#     -------
+#     nms_results: list
+#         NMS applied results
 
-    """
+#     """
     
-    print('--> Applying Non Maximum Suppression to model predicts...')
-    nms_results = []
-    for i in range(len(img_list)):
-        nms_res = apply_nms(results[i], img_list[i], class_size, iou_thr, scr_thr)
-        nms_results.append(nms_res)
-    return nms_results
+#     print('--> Applying Non Maximum Suppression to model predicts...')
+#     nms_results = []
+#     for i in range(len(img_list)):
+#         nms_res = apply_nms(results[i], img_list[i], class_size, iou_thr, scr_thr)
+#         nms_results.append(nms_res)
+#     return nms_results
 
 
 def get_ensemble_results_format(boxes, scores, labels, class_size):
@@ -910,60 +910,87 @@ def applying_ensemble(img_list, model_results, class_size, iou_thr, scr_thr):
     return ensemble_bbox
     
     
-def save_results(img_list, ann_list, results, label_names, img_save_path):
-    """
-    Saving detection results on image (if annotations are exist, they will be saved on image)
+      
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
-    Parametreler
-    ---------- 
-    img_list: list
-        Image file names' list
-    ann_list: list
-        Image files' annotation list 
-    results: list
-        model detections
-    label_names : list
-        Contains Classification [MALIGN, BENIGN] or Detection [MASS] labels.
-    img_save_path : str
-        save path
-   
-    Returns
-    -------
-
+def get_nms_results(results, img_list, class_size, iou_thr, scr_thr, num_workers=8):
     """
-    
+    Apply NMS in parallel across images.
+    """
+    print('--> Applying Non Maximum Suppression to model predictions in parallel...')
+
+    tasks = [(results[i], img_list[i], class_size, iou_thr, scr_thr) 
+             for i in range(len(img_list))]
+
+    nms_results = [None] * len(img_list)
+    with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        futures = {executor.submit(apply_nms, *t): idx for idx, t in enumerate(tasks)}
+        for f in tqdm(as_completed(futures), total=len(futures), desc="NMS"):
+            idx = futures[f]
+            nms_results[idx] = f.result()
+
+    return nms_results
+
+def process_single_image(args):
+    index, img_path, ann_list, bound_box, results, label_names, img_save_path = args
+    img = cv2.imread(img_path)
+
+    # Draw ground truth
+    if ann_list:
+        for box in bound_box[index]:
+            parsed_val = box.split()
+            label = int(parsed_val[-1])
+            text = label_names[label]
+            xmin, ymin, xmax, ymax = map(int, parsed_val[:-1])
+            cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (0, 255, 0), 3)
+            cv2.putText(img, text, (xmin, ymax + 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.2, (128, 255, 128), 2)
+
+    # Draw detections
     class_size = len(label_names)
-    print('--> Detections and their annotations (if you give any annotation path for it) showed on the image and images are saving to', img_save_path, 'folder...')
+    for i in range(class_size):
+        arr = results[index][i]
+        if arr is None or (hasattr(arr, "size") and arr.size == 0) or (len(arr) == 0):
+            continue
+
+        boxes = arr[:, :4].astype(int)
+        scores = arr[:, 4]
+
+        color = (255, 0, 0) if i == 0 else (0, 0, 139)
+        font_scale = 1.2 if i == 0 else 1.0
+        thickness = 3 if i == 0 else 2
+
+        for (xmin, ymin, xmax, ymax), score in zip(boxes, scores):
+            cv2.rectangle(img, (xmin, ymin), (xmax, ymax), color, 3)
+            cv2.putText(img, f"{label_names[i]}-{score:.2f}",
+                        (xmin, ymin - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        font_scale, color, thickness)
+
+    # Save result
+    img_result_path = os.path.join(img_save_path, os.path.basename(img_path))
+    cv2.imwrite(img_result_path, img)
+    return img_result_path
+
+
+def save_results(img_list, ann_list, results, label_names, img_save_path, num_workers=8):
+    """
+    Parallelized save_results using ProcessPoolExecutor.
+    """
+    print('--> Drawing detections/annotations in parallel. Saving to:', img_save_path)
+
+    bound_box = None
     if ann_list:
         bound_box, _ = get_gtbbox(ann_list)
-    for index in tqdm(range(len(img_list)), desc='Save Results'):
-        img = cv2.imread(img_list[index])
-        if ann_list:
-            for i in range(len(bound_box[index])):
-                parsed_val = bound_box[index][i].split()
-                label = parsed_val[-1]
-                text = label_names[int(label)]
-                coordinates = parsed_val[:-1]
-                xmin,ymin,xmax,ymax = int(coordinates[0]),int(coordinates[1]),int(coordinates[2]), int(coordinates[3])
-                img = cv2.rectangle(img, (xmin,ymin),(xmax,ymax),(0,255,0), thickness=4)
-                img = cv2.putText(img, text, (xmin,ymax+40), cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1.5, color=(128,255,128), thickness = 3)
-        
-        for i in range(class_size):
-            if results[index][i] == []:
-                continue
-            for res in results[index][i]:
-                coordinates = res
-                xmin,ymin,xmax,ymax = int(coordinates[0]),int(coordinates[1]),int(coordinates[2]), int(coordinates[3])
-                if i==0:
-                    img = cv2.rectangle(img, (xmin,ymin), (xmax,ymax), (255, 0, 0 ), thickness=8)
-                    img = cv2.putText(img, label_names[i] + "-{:.2f}".format(coordinates[4]), (xmin,ymin-20), cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1.5, color=(255, 0, 0), thickness = 3)
-                else:
-                    img = cv2.rectangle(img, (xmin,ymin), (xmax,ymax), (0,0,139), thickness=8)
-                    img = cv2.putText(img, label_names[i] + "-{:.2f}".format(coordinates[4]), (xmin,ymin-20), cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1, color=(0,0,139), thickness = 3)
-        
-        img_result_path = os.path.join(img_save_path, os.path.basename(img_list[index]))
-        plt.imsave(img_result_path, img)
-        
+
+    tasks = [(i, img_list[i], ann_list, bound_box, results, label_names, img_save_path)
+             for i in range(len(img_list))]
+
+    with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        futures = [executor.submit(process_single_image, t) for t in tasks]
+
+        for _ in tqdm(as_completed(futures), total=len(futures), desc="Save Results"):
+            pass
 
 
 

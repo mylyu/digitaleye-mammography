@@ -198,6 +198,10 @@ if args.segment_breast =='True':
     seg_img_path = os.path.join(results_dir, 'breast_segmentation')
     print('Image files feeding to segmentation model and segmentation results will be saved on', seg_img_path, 'directory.'),
     crop_coordinates, img_shapes = apply_segmentation(seg_img_path, args.img_path, device)
+    np.savez_compressed(os.path.join(results_dir, 'crop_coordinates.npz'), 
+                        coordinates=crop_coordinates, 
+                        img_shapes=img_shapes, 
+                        img_list=args.img_path)
     img_list, ann_list = control_annot_path(args.annotation_path, seg_img_path)
     if args.annotation_path:
         annot_path = get_annot_path(sorted(img_list), ann_list, img_shapes, crop_coordinates, seg_img_path)

@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+models/*.pth
+*/**/*.json
+work_dirs/**/*.npz
+out/**/*.joblib
