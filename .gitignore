@@ -130,4 +130,4 @@ dmypy.json
 models/*.pth
 */**/*.json
 work_dirs/**/*.npz
-out/**/*.joblib
+out/location_ensemble

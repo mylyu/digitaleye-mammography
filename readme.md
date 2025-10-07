@@ -1,6 +1,6 @@
 # Digital Eye Mammography - Competition Ensemble
 
-This repository reuses the pretrained detectors released in the original [Digital Eye for Mammography](https://github.com/ddobvyz/digitaleye-mammography) project and adds an anchor-wise, XGBoost-powered fusion layer designed for open mammography detection challenges. The convolutional backbones stay frozen: we rely on the published checkpoints to generate per-model predictions and learn a lightweight tree-based ensemble that improves leaderboard scores with minimal compute.
+This repository reuses the pretrained detectors released in the original [Digital Eye for Mammography](https://github.com/ddobvyz/digitaleye-mammography) project and adds an anchor-wise, XGBoost-powered fusion layer designed for the ISICDM 2025 钼靶影像乳腺癌检测挑战赛 (Challenge Four: [link](https://www.imagecomputing.org/isicdm2025/#/ChallengeFour)). The convolutional backbones stay frozen: we rely on the published checkpoints to generate per-model predictions and learn a lightweight tree-based ensemble that improves leaderboard scores with minimal compute.
 
 ## Highlights
 - **Pretrained foundations** - every detector checkpoint comes directly from the upstream Digital Eye release; no extra CNN training is required.
@@ -37,18 +37,18 @@ This repository reuses the pretrained detectors released in the original [Digita
 ## Workflow
 
 ### 1. Generate detector predictions
-Run the detectors you want to ensemble on both the training split (with labels) and the competition split (without labels). The command below saves raw results and COCO artefacts per model:
+Run the detectors you want to ensemble on both the training split (with labels) and the competition split (without labels). We generated the per-model predictions used to train the ensemble with:
 
 ```bash
-python mass_inference.py \
-  --model_enum 0 1 2 6 8 \
-  --img_path data/train/images \
-  --annotation_path data/train/annotations.txt \
-  --gt_coco_path data/train/gt_coco.json \
-  --coco_output_dir out/train_coco \
-  --device cuda:0 \
+python3 mass_inference.py \
+  --model_enum 0 1 2 3 4 5 6 7 8 9 10 \
+  --img_path /mnt/d/BaiduNetdiskDownload/ISICDM2025/ISICDM2025_dataset/ISICDM2025_dataset/images/train \
+  --enable_ensemble True \
+  --nms_iou_threshold 0.1 \
+  --confidence_threshold 0.1 \
   --segment_breast True \
-  --classify_mass False
+  --classify_mass True \
+  --device cuda:0
 ```
 
 Key tips:
@@ -72,6 +72,8 @@ python train_location_ensemble.py \
   --iou_reg xgb
 ```
 
+- **Reproduce exactly**: `train_location_ensemble.sh` is the authoritative script we used during the competition; it pins the JSON inputs, thresholds, and model order that yielded our best-performing ensemble.
+
 What you get:
 - `work_dirs/learnable_fusion/coord_reg.joblib` and `iou_reg.joblib` - the fitted ensemble.
 - `work_dirs/learnable_fusion/learnable_fusion_preds.json` - ensemble predictions on the validation split.
@@ -79,6 +81,20 @@ What you get:
 
 ### 3. Produce competition submissions
 Load the saved regressors and pass the detector predictions for the unlabeled competition set. Control how categories are assigned using `--category_mode`.
+
+Before running the ensemble inference script, we produced per-model predictions for the competition images with:
+
+```bash
+python3 mass_inference.py \
+  --model_enum 0 1 2 3 4 5 6 7 8 9 10 \
+  --img_path /mnt/d/BaiduNetdiskDownload/ISICDM2025/ISICDM2025_images_for_test/ISICDM2025_images_for_test/ \
+  --enable_ensemble True \
+  --nms_iou_threshold 0.1 \
+  --confidence_threshold 0.1 \
+  --segment_breast True \
+  --classify_mass True \
+  --device cuda:0
+```
 
 ```bash
 python infer_location_ensemble.py \
@@ -91,7 +107,22 @@ python infer_location_ensemble.py \
   --nms_iou 0.5
 ```
 
+- **Reproduce exactly**: `infer_location_ensemble.sh` mirrors the submission-time settings (input paths, NMS threshold, category handling) that we used to generate competition predictions.
+
 The script constructs a full COCO dictionary (reusing metadata if available), applies non-maximum suppression, and ensures submission-ready formatting.
+
+### 4. Post-process BI-RADS scores
+The competition defines BI-RADS grades slightly differently from standard references. After ensemble inference, we adjusted the scores with:
+
+```bash
+python postprocess_birads.py \
+  --in /mnt/d/BaiduNetdiskDownload/ISICDM2025/learnable_fusion_preds_submit.json \
+  --out /mnt/d/BaiduNetdiskDownload/ISICDM2025/learnable_fusion_preds_post.json \
+  --top_pct 0.1 \
+  --fallback_bbox_ratio 0.60
+```
+
+This script tunes the top percentile of detections and rescales bounding boxes to align with the organisers' BI-RADS definition before final submission.
 
 ## Model Enum Reference
 
