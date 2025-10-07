@@ -25,7 +25,7 @@ python train_location_ensemble2.py \
     work_dirs/test/coco_predictions_corrected/cascade_r-cnn_predictions.json \
     work_dirs/test/coco_predictions_corrected/doublehead_r-cnn_predictions.json \
     work_dirs/test/coco_predictions_corrected/fcos_predictions.json \
-  --outdir ./out/learnable_fusion \
+  --outdir ./out/learnable_fusion_reproduce \
   --label_iou_pos 0.05 \
   --min_neighbor_iou 0.01 \
   --anchor_score_thresh 0.00 \
