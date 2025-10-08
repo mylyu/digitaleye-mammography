@@ -1,0 +1,203 @@
+% Beamer slides for a 4-minute presentation (English, concise)
+% Theme: Berlin, anonymous title page
+% Sources referenced in comments: readme.md, train_location_ensemble.sh, train_location_ensemble.py,
+%                                 infer_location_ensemble.sh, infer_location_ensemble.py,
+%                                 mass_inference.py, postprocess_birads.py
+
+\documentclass[aspectratio=169]{beamer}
+\usetheme{AnnArbor}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+% Anonymous title page per requirement
+\title[github.com/mylyu/digitaleye-mammography]{Digital Eye Pretrained + XGBoost Learnable Fusion for Mammography}
+\subtitle{ISICDM 2025 Challenge (Mammography Detection)}
+\author{} % anonymous
+\institute{} % anonymous
+\date{\today}
+
+\begin{document}
+
+%---------------------------------------
+\begin{frame}
+  \titlepage
+  % Source: readme.md (project intro & competition link)
+\end{frame}
+
+%---------------------------------------
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+%=======================================
+\section{Motivation}
+
+%---------------------------------------
+\begin{frame}{Motivation}
+  % Source: readme.md (motivation/goals)
+  \begin{itemize}
+    \item Reliable mammography \alert{lesion detection} is crucial for early diagnosis.
+    \item We target the \alert{ISICDM 2025} mammography challenge.
+    \item Reuse strong \alert{pretrained detectors} (no re-training) + a learnable late‑fusion module (XGBoost‑based meta‑regressors) to refine boxes and scores.
+    \item Goals: \alert{accuracy}, \alert{reproducibility}, and \alert{fast iteration} for competition use.
+    \item open source at github.com/mylyu/digitaleye-mammography
+
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}{Upstream Project}
+  % Source: readme.md (link and description of upstream)
+  \begin{itemize}
+    \item Upstream: \href{https://github.com/ddobvyz/digitaleye-mammography}{github.com/ddobvyz/digitaleye-mammography}
+    \item Open-source toolkit for mammography \alert{mass detection/classification} with MMDetection/Ultralytics integration.
+    \item Models trained on the curated \alert{KETEM} dataset; checkpoints released for multiple detectors and a breast segmentation model.
+    \item We reuse all \alert{pretrained weights} as-is (no retraining) and focus on a learnable fusion module.
+  \end{itemize}
+\end{frame}
+
+%=======================================
+\section{Method}
+
+%---------------------------------------
+\begin{frame}{Overview}
+  % Source: train_location_ensemble.py (overall pipeline)
+  \begin{itemize}
+    \item Run 11 pretrained detectors to get candidate boxes.
+    \item Build \alert{anchor-wise, cross-model features} per candidate.
+    \item Train two regressors: \alert{box coordinates} and \alert{IoU/score}.
+    \item Infer refined boxes + scores, apply \alert{NMS}, export COCO.
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}{11 Base Detectors}
+  % Source: utils/all_utils.py (model_dict)
+  \begin{itemize}
+    \item ATSS, Cascade R-CNN, Deformable DETR, DETR, Double-Head R-CNN,
+    \item Dynamic R-CNN, Faster R-CNN, FCOS, RetinaNet, VarifocalNet, YOLOv3.
+    \item Each runs on the same images; outputs are aligned and fed into the fusion features.
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}{Anchor-wise Feature Construction}
+% Source: train_location_ensemble2.py: build_feature_vector(), nearest_gt(), build_training_sets()
+\begin{itemize}
+\item Anchor = any raw detection (box + score) from any base model with score $\ge$ \alert{anchor\_score\_thresh}.
+\item For this anchor, scan \alert{every model} and take its \alert{best-overlapping} box w.r.t. the anchor (by IoU).
+\item Keep a model’s box only if IoU(anchor, box) $\ge$ \alert{min\_neighbor\_iou}; else mark it \alert{absent}.
+\item Per-model features (for each of 11 models):
+\alert{$x/W, y/H, w/W, h/H, \text{score}, \text{IoU-to-anchor}, \text{present-flag}$}
+(zeros if absent).
+\item Global features (for the anchor itself):
+\alert{anchor $x/W, y/H, w/W, h/H$, anchor score, one-hot source model}.
+\item Labels:
+nearest GT \alert{IoU}; if IoU $\ge$ \alert{label\_iou\_pos}, the anchor contributes to the \alert{coordinate regressor}.
+All anchors contribute to the \alert{IoU/score regressor}.
+\end{itemize}
+\end{frame}
+%---------------------------------------
+\begin{frame}{Regressors and Inference}
+  % Source: train_location_ensemble.py: make_coord_regressor(), make_iou_regressor(), infer_split()
+  \begin{itemize}
+    \item \alert{Coordinate regressor}: MultiOutput \alert{XGBoost} , output normalized \((x,y,w,h)\).
+    \item \alert{IoU/score regressor}: StandardScaler + \alert{XGBoost}, output fused score.
+    \item Post-process: \alert{NMS} (class-agnostic), export COCO predictions (if scores$>$0.01).
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}[fragile]{Implementation Details}
+  % Source: train_location_ensemble.sh (exact config), train_location_ensemble.py/2.py
+  \vspace{4pt}
+  \textbf{Training Command:}
+  \begin{block}{Shell}
+python train\_location\_ensemble2.py \
+  --train\_gt annotations/instances\_train\_final.json \
+  --train\_preds atss\_predictions.json \
+    ... \
+  --outdir ./out/learnable\_fusion \
+  --label\_iou\_pos 0.05 --min\_neighbor\_iou 0.01 --anchor\_score\_thresh 0.00 --nms\_iou 0.50 \
+  --coord\_reg xgb --iou\_reg xgb
+  \end{block}
+  
+  % Source: train_location_ensemble.sh values
+  \begin{itemize}
+    \item \verb|--label_iou_pos 0.05|: include anchors with nearest-GT IoU\(\ge\)\alert{0.05} for \alert{coordinate regression} targets.
+    \item \verb|--min_neighbor_iou 0.01|: only use a model's neighbor box if its IoU to the anchor\(\ge\)\alert{0.01} when building features.
+    \item \verb|--anchor_score_thresh 0.00|: drop raw anchors with score\(<\)\alert{0.00}; here we keep all.
+    \item \verb|--nms_iou 0.50|: class-agnostic \alert{NMS IoU} for final de-duplication during inference.
+  \item  These settings led to 3,207 coord training samples  (anchors with IoU $>=$ 0.05) and 21,754 iou training  samples (all anchors).
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}[fragile]{BI-RADS Post-processing (Challenge-specific)}
+  % Source: postprocess_birads.py and readme.md note
+  \begin{itemize}
+    \item The challenge uses a slightly different \alert{BI-RADS} definition.
+    \item Apply final score/box adjustments before submission. Rules:\begin{itemize}
+    \item Take the top 10\% by score within Malign - relabel to category\_id=4 (BI-RADS-4).
+    \item All other Malign detections - relabel to category\_id=0 (BI-RADS-0).
+    \item Discard the top 10\% by score within Benign - mostly false positves.
+    \item All other Benign detections - keep category\_id=2 (BI-RADS-2).
+    \item For images with no detections at all in the INPUT file - add one centered, large box with category\_id=1 (BI-RADS-1).
+\end{itemize}
+  \end{itemize}
+  \begin{block}{Shell}
+\tiny
+\begin{verbatim}
+python postprocess_birads.py \
+  --in learnable_fusion_preds_submit.json --out learnable_fusion_preds_post.json --top_pct 0.1 --fallback_bbox_ratio 0.60
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+%=======================================
+\section{Experiments}
+
+%---------------------------------------
+\begin{frame}{Validation Results}
+  % Source: train_location_ensemble.py (PR metrics at IoU 0.1/0.3/0.5/0.7)
+  \begin{table}[t]
+    \centering
+    \small
+    \begin{tabular}{lcccc}
+      \toprule
+      Method & IoU=0.1 & IoU=0.3 & IoU=0.5 \\
+      \midrule
+      \textbf{YOLOv3 (Worst Single)} & P=0.0159, R=0.0771 & P=0.0021, R=0.0289 & P=0.0001, R=0.0058 \\
+      \midrule
+      \textbf{VarifocalNet (Best Single)} & P=0.0423, R=0.2005 & P=0.0050, R=0.0694 & P=0.0005, R=0.0212 \\
+      \midrule
+      \textbf{Simple Weighted Fusion} & P=0.0372, R=0.1706 & P=0.0046, R=0.0540 & P=0.0006, R=0.0174 \\
+      \midrule
+      \textbf{Learnable Fusion (Ours)} & P=0.1765, R=0.4001 & P=0.0914, R=0.2786 & P=0.0180, R=0.1282 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \vspace{2pt}
+  \scriptsize Sources: training/inference/evaluation logic from \texttt{train\_location\_ensemble2.py} and \texttt{infer\_location\_ensemble.py}; detector checkpoints from the upstream Digital Eye release.
+\end{frame}
+
+%=======================================
+\section{Conclusion}
+
+%---------------------------------------
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item \alert{Pretrained detectors} + \alert{XGBoost learnable fusion} deliver strong, reproducible performance.
+    \item Minimal compute: no detector retraining; fast iteration for similar competitions.
+    \item Fully reproducible at \alert{https://github.com/mylyu/digitaleye-mammography}.
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------
+\begin{frame}{Q\,\&\,A}
+  \centering\Large Thank you!
+\end{frame}
+
+\end{document}
