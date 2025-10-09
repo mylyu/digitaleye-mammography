@@ -131,3 +131,4 @@ models/*.pth
 work_dirs/**/*.npz
 out/location_ensemble
 annotations/report.csv
+out/**/*.joblib

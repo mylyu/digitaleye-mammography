@@ -1,0 +1,1142 @@
+
+=============
+TRAIN SUMMARY
+=============
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Models (train): ['atss_predictions', 'detr_predictions', 'faster_r-cnn_predictions', 'yolov3_predictions', 'ensemble_predictions', 'retinanet_predictions', 'varifocalnet_predictions', 'dynamic_r-cnn_predictions', 'deformable_detr_predictions', 'cascade_r-cnn_predictions', 'doublehead_r-cnn_predictions', 'fcos_predictions']
+
+=================================
+Single-model evaluations on train
+=================================
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[atss_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0277    |  0.1563
+ 0.3 |   0.0016    |  0.0364
+ 0.5 |   0.0002    |  0.0116
+ 0.7 |   0.0000    |  0.0020
+
+[atss_predictions] Center-hit:
+  Precision: 0.1765   Recall: 0.4503
+
+[atss_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0759
+    1 |   0.2186
+    2 |   0.4136
+    4 |   0.4503
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.07s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[detr_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0228    |  0.1528
+ 0.3 |   0.0011    |  0.0300
+ 0.5 |   0.0001    |  0.0090
+ 0.7 |   0.0000    |  0.0000
+
+[detr_predictions] Center-hit:
+  Precision: 0.1422   Recall: 0.4568
+
+[detr_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0393
+    1 |   0.1597
+    2 |   0.3757
+    4 |   0.4568
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[faster_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0224    |  0.1286
+ 0.3 |   0.0013    |  0.0288
+ 0.5 |   0.0002    |  0.0096
+ 0.7 |   0.0000    |  0.0000
+
+[faster_r-cnn_predictions] Center-hit:
+  Precision: 0.1850   Recall: 0.3586
+
+[faster_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0366
+    1 |   0.1662
+    2 |   0.3586
+    4 |   0.3586
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.06s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[yolov3_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0125    |  0.0786
+ 0.3 |   0.0010    |  0.0204
+ 0.5 |   0.0002    |  0.0081
+ 0.7 |   0.0000    |  0.0023
+
+[yolov3_predictions] Center-hit:
+  Precision: 0.1648   Recall: 0.2068
+
+[yolov3_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0576
+    1 |   0.1597
+    2 |   0.2068
+    4 |   0.2068
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[ensemble_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0245    |  0.1447
+ 0.3 |   0.0014    |  0.0329
+ 0.5 |   0.0002    |  0.0119
+ 0.7 |   0.0000    |  0.0000
+
+[ensemble_predictions] Center-hit:
+  Precision: 0.1830   Recall: 0.4215
+
+[ensemble_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0471
+    1 |   0.1832
+    2 |   0.4058
+    4 |   0.4215
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.05s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.08s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[retinanet_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0258    |  0.1566
+ 0.3 |   0.0013    |  0.0346
+ 0.5 |   0.0001    |  0.0093
+ 0.7 |   0.0000    |  0.0000
+
+[retinanet_predictions] Center-hit:
+  Precision: 0.1456   Recall: 0.4476
+
+[retinanet_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0589
+    1 |   0.1662
+    2 |   0.3482
+    4 |   0.4476
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.05s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.05s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[varifocalnet_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0292    |  0.1871
+ 0.3 |   0.0019    |  0.0472
+ 0.5 |   0.0003    |  0.0137
+ 0.7 |   0.0000    |  0.0015
+
+[varifocalnet_predictions] Center-hit:
+  Precision: 0.1194   Recall: 0.5510
+
+[varifocalnet_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0746
+    1 |   0.2003
+    2 |   0.3835
+    4 |   0.5314
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.06s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[dynamic_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0190    |  0.1144
+ 0.3 |   0.0011    |  0.0236
+ 0.5 |   0.0001    |  0.0064
+ 0.7 |   0.0000    |  0.0000
+
+[dynamic_r-cnn_predictions] Center-hit:
+  Precision: 0.1819   Recall: 0.3298
+
+[dynamic_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0510
+    1 |   0.2003
+    2 |   0.3298
+    4 |   0.3298
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[deformable_detr_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0174    |  0.1045
+ 0.3 |   0.0006    |  0.0186
+ 0.5 |   0.0001    |  0.0049
+ 0.7 |   0.0000    |  0.0000
+
+[deformable_detr_predictions] Center-hit:
+  Precision: 0.1955   Recall: 0.3063
+
+[deformable_detr_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0995
+    1 |   0.2369
+    2 |   0.3063
+    4 |   0.3063
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.07s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[cascade_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0213    |  0.1260
+ 0.3 |   0.0014    |  0.0314
+ 0.5 |   0.0003    |  0.0122
+ 0.7 |   0.0000    |  0.0009
+
+[cascade_r-cnn_predictions] Center-hit:
+  Precision: 0.1747   Recall: 0.3455
+
+[cascade_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0393
+    1 |   0.1662
+    2 |   0.3455
+    4 |   0.3455
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[doublehead_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0181    |  0.1138
+ 0.3 |   0.0010    |  0.0250
+ 0.5 |   0.0001    |  0.0070
+ 0.7 |   0.0000    |  0.0000
+
+[doublehead_r-cnn_predictions] Center-hit:
+  Precision: 0.1794   Recall: 0.3403
+
+[doublehead_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0353
+    1 |   0.1584
+    2 |   0.3403
+    4 |   0.3403
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.07s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+
+[fcos_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0210    |  0.1249
+ 0.3 |   0.0023    |  0.0306
+ 0.5 |   0.0002    |  0.0102
+ 0.7 |   0.0000    |  0.0000
+
+[fcos_predictions] Center-hit:
+  Precision: 0.1749   Recall: 0.3966
+
+[fcos_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0641
+    1 |   0.2134
+    2 |   0.3901
+    4 |   0.3966
+[train] coord samples: 2736 (anchors with IoU >= 0.075)
+[train] iou   samples: 21754 (all anchors)
+
+[FIT] coordinate regressor...
+[FIT] IoU regressor...
+[FIT] classification head...
+[OK] Saved regressors to outdir
+
+============
+TEST SUMMARY
+============
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Models (test):  ['atss_predictions', 'detr_predictions', 'faster_r-cnn_predictions', 'yolov3_predictions', 'ensemble_predictions', 'retinanet_predictions', 'varifocalnet_predictions', 'dynamic_r-cnn_predictions', 'deformable_detr_predictions', 'cascade_r-cnn_predictions', 'doublehead_r-cnn_predictions', 'fcos_predictions']
+
+================================
+Single-model evaluations on test
+================================
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[atss_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0405    |  0.1822
+ 0.3 |   0.0049    |  0.0550
+ 0.5 |   0.0007    |  0.0174
+ 0.7 |   0.0000    |  0.0000
+
+[atss_predictions] Center-hit:
+  Precision: 0.1925   Recall: 0.4892
+
+[atss_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0909
+    1 |   0.2597
+    2 |   0.4632
+    4 |   0.4892
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[detr_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0289    |  0.1639
+ 0.3 |   0.0029    |  0.0463
+ 0.5 |   0.0007    |  0.0193
+ 0.7 |   0.0000    |  0.0000
+
+[detr_predictions] Center-hit:
+  Precision: 0.1563   Recall: 0.4589
+
+[detr_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0476
+    1 |   0.1732
+    2 |   0.3810
+    4 |   0.4589
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[faster_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0280    |  0.1408
+ 0.3 |   0.0028    |  0.0395
+ 0.5 |   0.0000    |  0.0029
+ 0.7 |   0.0000    |  0.0000
+
+[faster_r-cnn_predictions] Center-hit:
+  Precision: 0.2120   Recall: 0.3810
+
+[faster_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0476
+    1 |   0.1948
+    2 |   0.3810
+    4 |   0.3810
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[yolov3_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0159    |  0.0771
+ 0.3 |   0.0021    |  0.0289
+ 0.5 |   0.0001    |  0.0058
+ 0.7 |   0.0000    |  0.0000
+
+[yolov3_predictions] Center-hit:
+  Precision: 0.1554   Recall: 0.1688
+
+[yolov3_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0866
+    1 |   0.1688
+    2 |   0.1688
+    4 |   0.1688
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[ensemble_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0372    |  0.1706
+ 0.3 |   0.0046    |  0.0540
+ 0.5 |   0.0006    |  0.0174
+ 0.7 |   0.0000    |  0.0000
+
+[ensemble_predictions] Center-hit:
+  Precision: 0.2087   Recall: 0.4589
+
+[ensemble_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0346
+    1 |   0.2338
+    2 |   0.4589
+    4 |   0.4589
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[retinanet_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0353    |  0.1668
+ 0.3 |   0.0047    |  0.0559
+ 0.5 |   0.0003    |  0.0087
+ 0.7 |   0.0000    |  0.0000
+
+[retinanet_predictions] Center-hit:
+  Precision: 0.1652   Recall: 0.4719
+
+[retinanet_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0693
+    1 |   0.2208
+    2 |   0.4242
+    4 |   0.4719
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[varifocalnet_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0423    |  0.2005
+ 0.3 |   0.0050    |  0.0694
+ 0.5 |   0.0005    |  0.0212
+ 0.7 |   0.0001    |  0.0048
+
+[varifocalnet_predictions] Center-hit:
+  Precision: 0.1309   Recall: 0.5541
+
+[varifocalnet_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0606
+    1 |   0.2468
+    2 |   0.4156
+    4 |   0.5411
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[dynamic_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0243    |  0.1263
+ 0.3 |   0.0034    |  0.0443
+ 0.5 |   0.0001    |  0.0058
+ 0.7 |   0.0000    |  0.0000
+
+[dynamic_r-cnn_predictions] Center-hit:
+  Precision: 0.2020   Recall: 0.3506
+
+[dynamic_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0519
+    1 |   0.2208
+    2 |   0.3506
+    4 |   0.3506
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[deformable_detr_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0268    |  0.1350
+ 0.3 |   0.0024    |  0.0347
+ 0.5 |   0.0002    |  0.0087
+ 0.7 |   0.0000    |  0.0000
+
+[deformable_detr_predictions] Center-hit:
+  Precision: 0.2408   Recall: 0.3680
+
+[deformable_detr_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0779
+    1 |   0.2857
+    2 |   0.3680
+    4 |   0.3680
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.04s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[cascade_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0243    |  0.1302
+ 0.3 |   0.0040    |  0.0463
+ 0.5 |   0.0003    |  0.0116
+ 0.7 |   0.0000    |  0.0000
+
+[cascade_r-cnn_predictions] Center-hit:
+  Precision: 0.2060   Recall: 0.3853
+
+[cascade_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0476
+    1 |   0.1948
+    2 |   0.3853
+    4 |   0.3853
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[doublehead_r-cnn_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0237    |  0.1292
+ 0.3 |   0.0024    |  0.0376
+ 0.5 |   0.0004    |  0.0125
+ 0.7 |   0.0000    |  0.0000
+
+[doublehead_r-cnn_predictions] Center-hit:
+  Precision: 0.1995   Recall: 0.3593
+
+[doublehead_r-cnn_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0433
+    1 |   0.1861
+    2 |   0.3593
+    4 |   0.3593
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[fcos_predictions] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.0323    |  0.1494
+ 0.3 |   0.0040    |  0.0492
+ 0.5 |   0.0003    |  0.0125
+ 0.7 |   0.0000    |  0.0000
+
+[fcos_predictions] Center-hit:
+  Precision: 0.1971   Recall: 0.4113
+
+[fcos_predictions] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.0779
+    1 |   0.2468
+    2 |   0.4113
+    4 |   0.4113
+
+============================
+LEARNABLE ENSEMBLE INFERENCE
+============================
+[OK] wrote predictions: out/hparam_search/liou0.075_mnei0.010_ath0.00_nms0.45/learnable_fusion_preds.json
+
+=======================
+ENSEMBLE METRICS (TEST)
+=======================
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.02s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.01s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+
+[Ensemble] Precision/Recall at IoU thresholds
+  IoU |  Precision  |   Recall
+ -----+-------------+----------
+ 0.1 |   0.1972    |  0.4020
+ 0.3 |   0.1011    |  0.2815
+ 0.5 |   0.0314    |  0.1408
+ 0.7 |   0.0010    |  0.0309
+
+[Ensemble] Center-hit:
+  Precision: 0.1132   Recall: 0.6407
+
+[Ensemble] FROC (center-hit) sensitivity @ FPPI
+ FPPI |  Sensitivity
+------+-------------
+  0.5 |   0.2381
+    1 |   0.3290
+    2 |   0.4935
+    4 |   0.6277
+
+=======================================
+COCO SUMMARY (Class-agnostic, Ensemble)
+=======================================
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.02s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.051
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.009
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.041
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.079
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.079
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.079
